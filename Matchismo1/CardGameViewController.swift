@@ -18,8 +18,11 @@ class CardGameViewController : UIViewController {
         }
     }
 
+    var deck = Deck()
+    
     @IBAction func flipCard(sender: UIButton) {
         sender.selected = !sender.selected
+        var card = deck.drawRandomCard()
         ++flipCount
     }
 }
