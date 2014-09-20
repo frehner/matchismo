@@ -13,6 +13,7 @@
 		3FD2D57919C09D0C00CCADD3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FD2D57719C09D0C00CCADD3 /* LaunchScreen.xib */; };
 		3FD2D58519C09D0C00CCADD3 /* Matchismo1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD2D58419C09D0C00CCADD3 /* Matchismo1Tests.swift */; };
 		3FD2D58F19C09E7D00CCADD3 /* CardGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD2D58E19C09E7D00CCADD3 /* CardGameViewController.swift */; };
+		A0E999E619CE0896008FB331 /* CardMatchingGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E999E519CE0896008FB331 /* CardMatchingGame.swift */; };
 		A0ECC1A419C4B0ED004DAA2F /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0ECC1A319C4B0ED004DAA2F /* Card.swift */; };
 		A0ECC1A619C4B0F7004DAA2F /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0ECC1A519C4B0F7004DAA2F /* Deck.swift */; };
 		A0ECC1A819C4B104004DAA2F /* PlayingCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0ECC1A719C4B104004DAA2F /* PlayingCard.swift */; };
@@ -40,6 +41,7 @@
 		3FD2D58319C09D0C00CCADD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3FD2D58419C09D0C00CCADD3 /* Matchismo1Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Matchismo1Tests.swift; sourceTree = "<group>"; };
 		3FD2D58E19C09E7D00CCADD3 /* CardGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardGameViewController.swift; sourceTree = "<group>"; };
+		A0E999E519CE0896008FB331 /* CardMatchingGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardMatchingGame.swift; sourceTree = "<group>"; };
 		A0ECC1A319C4B0ED004DAA2F /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		A0ECC1A519C4B0F7004DAA2F /* Deck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 		A0ECC1A719C4B104004DAA2F /* PlayingCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayingCard.swift; sourceTree = "<group>"; };
@@ -90,7 +92,6 @@
 				3FD2D59019C0A22400CCADD3 /* Model */,
 				3FD2D56E19C09D0C00CCADD3 /* AppDelegate.swift */,
 				3FD2D57519C09D0C00CCADD3 /* Images.xcassets */,
-				3FD2D57719C09D0C00CCADD3 /* LaunchScreen.xib */,
 				3FD2D56C19C09D0C00CCADD3 /* Supporting Files */,
 			);
 			path = Matchismo1;
@@ -128,6 +129,7 @@
 				A0ECC1A519C4B0F7004DAA2F /* Deck.swift */,
 				A0ECC1A719C4B104004DAA2F /* PlayingCard.swift */,
 				A0ECC1A919C4B116004DAA2F /* PlayingCardDeck.swift */,
+				A0E999E519CE0896008FB331 /* CardMatchingGame.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -135,6 +137,7 @@
 		3FD2D59119C0A22A00CCADD3 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3FD2D57719C09D0C00CCADD3 /* LaunchScreen.xib */,
 				3FD2D57219C09D0C00CCADD3 /* Main.storyboard */,
 			);
 			name = View;
@@ -251,6 +254,7 @@
 				A0ECC1A819C4B104004DAA2F /* PlayingCard.swift in Sources */,
 				A0ECC1A619C4B0F7004DAA2F /* Deck.swift in Sources */,
 				3FD2D58F19C09E7D00CCADD3 /* CardGameViewController.swift in Sources */,
+				A0E999E619CE0896008FB331 /* CardMatchingGame.swift in Sources */,
 				A0ECC1AA19C4B116004DAA2F /* PlayingCardDeck.swift in Sources */,
 				A0ECC1A419C4B0ED004DAA2F /* Card.swift in Sources */,
 				3FD2D56F19C09D0C00CCADD3 /* AppDelegate.swift in Sources */,
