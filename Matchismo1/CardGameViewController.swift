@@ -9,7 +9,9 @@
 import UIKit
 
 class CardGameViewController : UIViewController {
-
+    lazy var deck: Deck! = PlayingCardDeck()
+    lazy var cards: [UIButton: Card]! = [UIButton: Card]()
+    
     @IBOutlet weak var flipLabel: UILabel!
 
     var flipCount: Int = 0 {
@@ -18,11 +20,38 @@ class CardGameViewController : UIViewController {
         }
     }
 
+    @IBOutlet var cardButtons: [UIButton]! {
+        didSet {
+            for button in cardButtons {
+                cards[button] = deck.drawRandomCard()
+            }
+        }
+    }
+
     @IBAction func flipCard(sender: UIButton) {
-        lazy var deck: Deck! = PlayingCardDeck()
+        if let card = cards[sender] {
+            card.faceUp = !card.faceUp
+            
+            if card.faceUp {
+                ++flipCount
+            }
+        }
         
-        sender.selected = !sender.selected
-        var card = deck.drawRandomCard()
-        ++flipCount
+        updateUI()
+    }
+    
+    func updateUI() {
+        let cardBack = UIImage(named: "CardBack")
+        let cardFront = UIImage(named: "CardFront")
+        
+        for (button, card) in cards {
+            if card.faceUp {
+                button.setTitle(card.contents, forState: .Normal)
+                button.setBackgroundImage(cardFront, forState: .Normal)
+            } else {
+                button.setTitle("", forState: .Normal)
+                button.setBackgroundImage(cardBack, forState: .Normal)
+            }
+        }
     }
 }

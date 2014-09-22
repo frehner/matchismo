@@ -10,8 +10,8 @@ import Foundation
 
 class Card {
     var contents = ""
-    var faceUp = ""
-    var unplayable = ""
+    var faceUp = false
+    var unplayable = false
     
     func match(otherCards: [Card]) -> Int {
         var score = 0

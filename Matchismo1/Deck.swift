@@ -19,8 +19,8 @@ class Deck {
         }
     }
     
-    func drawRandomCard()->Card? {
-        var randomCard = Card?()
+    func drawRandomCard() -> Card? {
+        var randomCard: Card?
         
         if cards.count > 0 {
             let index = Int(arc4random() % UInt32(cards.count))
