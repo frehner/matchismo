@@ -9,6 +9,23 @@
 import Foundation
 
 class PlayingCard: Card {
+    let RANK_MATCH_SCORE = 4
+    let SUIT_MATCH_SCORE = 1
+    
+    override func match(otherCards: [Card]) -> Int {
+        var score = 0
+        if otherCards.count == 1 {
+            if let otherCard = otherCards.last as? PlayingCard {
+                if otherCard.suit == suit {
+                    score = SUIT_MATCH_SCORE
+                } else if otherCard.rank == rank {
+                    score = RANK_MATCH_SCORE
+                }
+            }
+        }
+        return score
+    }
+    
     var suit:String! {
         didSet {
             if !contains(PlayingCard.validSuits(), suit) {

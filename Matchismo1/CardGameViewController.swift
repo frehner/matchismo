@@ -9,9 +9,10 @@
 import UIKit
 
 class CardGameViewController : UIViewController {
-    lazy var deck: Deck! = PlayingCardDeck()
     lazy var cards: [UIButton: Card]! = [UIButton: Card]()
+    var game: CardMatchingGame!
     
+    @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var flipLabel: UILabel!
 
     var flipCount: Int = 0 {
@@ -22,21 +23,13 @@ class CardGameViewController : UIViewController {
 
     @IBOutlet var cardButtons: [UIButton]! {
         didSet {
-            for button in cardButtons {
-                cards[button] = deck.drawRandomCard()
-            }
+            game = CardMatchingGame(cardCount: cardButtons.count, deck: PlayingCardDeck())
         }
     }
 
     @IBAction func flipCard(sender: UIButton) {
-        if let card = cards[sender] {
-            card.faceUp = !card.faceUp
-            
-            if card.faceUp {
-                ++flipCount
-            }
-        }
-        
+        game.flipCardAtIndex(indexOfButton(sender))
+        ++flipCount
         updateUI()
     }
     
@@ -44,14 +37,27 @@ class CardGameViewController : UIViewController {
         let cardBack = UIImage(named: "CardBack")
         let cardFront = UIImage(named: "CardFront")
         
-        for (button, card) in cards {
+        for button in cardButtons {
+            let card = game.cardAtIndex(indexOfButton(button))!
             if card.faceUp {
                 button.setTitle(card.contents, forState: .Normal)
                 button.setBackgroundImage(cardFront, forState: .Normal)
+                button.enabled = !card.unplayable
             } else {
                 button.setTitle("", forState: .Normal)
                 button.setBackgroundImage(cardBack, forState: .Normal)
             }
         }
+        scoreLabel.text = "Score: \(game.currentScore())"
     }
+    
+    func indexOfButton(button: UIButton) -> Int {
+        for i in 0 ..< cardButtons.count {
+            if button == cardButtons[i] {
+                return i
+            }
+        }
+        return -1
+    }
+    
 }

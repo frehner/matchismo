@@ -139,11 +139,19 @@
                                     <action selector="flipCard:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="fdr-sJ-CoA"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flips: 0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KxR-0o-lAE">
+                                <rect key="frame" x="163" y="526" width="141" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.019228088486212967" green="0.53020974864130432" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <connections>
                         <outlet property="flipLabel" destination="AU3-KW-SSn" id="ucJ-8g-xIF"/>
+                        <outlet property="scoreLabel" destination="KxR-0o-lAE" id="3mE-fp-78J"/>
                         <outletCollection property="cardButtons" destination="Mgl-8x-OCc" collectionClass="NSMutableArray" id="VPa-H0-kW5"/>
                         <outletCollection property="cardButtons" destination="f1P-4b-dEI" collectionClass="NSMutableArray" id="yjZ-jz-KqI"/>
                         <outletCollection property="cardButtons" destination="Hyd-EE-Ids" collectionClass="NSMutableArray" id="CKP-68-aKa"/>
