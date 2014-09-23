@@ -58,7 +58,7 @@ class CardMatchingGame {
         return nil
     }
     
-    func currentScore() -> Int { return score
-    
+    func currentScore() -> Int {
+        return score
     }
 }

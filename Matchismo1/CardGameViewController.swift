@@ -10,8 +10,13 @@ import UIKit
 
 class CardGameViewController : UIViewController {
     lazy var cards: [UIButton: Card]! = [UIButton: Card]()
+    lazy var resultHistory: [String]! = []
     var game: CardMatchingGame!
     
+    
+    @IBOutlet weak var dealNewButton: UIButton!
+    @IBOutlet weak var numCardsSegmentControl: UISegmentedControl!
+    @IBOutlet weak var resultLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var flipLabel: UILabel!
 
