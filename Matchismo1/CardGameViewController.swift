@@ -13,8 +13,15 @@ class CardGameViewController : UIViewController {
     lazy var resultHistory: [String]! = []
     var game: CardMatchingGame!
     
+    private lazy var resultString:String = ""
     
-    @IBOutlet weak var dealNewButton: UIButton!
+    let cardBack = UIImage(named: "CardBack")
+    let cardFront = UIImage(named: "CardFront")
+    
+    @IBAction func dealNewButton(sender: UIButton) {
+        startNewGame()
+    }
+
     @IBOutlet weak var numCardsSegmentControl: UISegmentedControl!
     @IBOutlet weak var resultLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
@@ -33,14 +40,26 @@ class CardGameViewController : UIViewController {
     }
 
     @IBAction func flipCard(sender: UIButton) {
-        game.flipCardAtIndex(indexOfButton(sender))
+        resultLabel.numberOfLines = 0
+        if let resultText = game.flipCardAtIndex(indexOfButton(sender)) {
+            resultLabel.text = resultText
+            resultHistory.append(resultText)
+        }
         ++flipCount
         updateUI()
     }
     
+    func startNewGame() {
+        game = CardMatchingGame(cardCount: cardButtons.count, deck: PlayingCardDeck())
+        flipCount = 0
+        
+        for button in cardButtons {
+            button.enabled = true
+        }
+        updateUI()
+    }
+    
     func updateUI() {
-        let cardBack = UIImage(named: "CardBack")
-        let cardFront = UIImage(named: "CardFront")
         
         for button in cardButtons {
             let card = game.cardAtIndex(indexOfButton(button))!
