@@ -14,14 +14,29 @@ class PlayingCard: Card {
     
     override func match(otherCards: [Card]) -> Int {
         var score = 0
-        if otherCards.count == 1 {
-            if let otherCard = otherCards.last as? PlayingCard {
-                if otherCard.suit == suit {
-                    score = SUIT_MATCH_SCORE
-                } else if otherCard.rank == rank {
-                    score = RANK_MATCH_SCORE
+        if otherCards.count >= 1 {
+            
+            var totalMatches = 0
+            var rankMatches = 0
+            var suitMatches = 0
+            
+            for otherCard in otherCards {
+                if let otherPlayingCard = otherCard as? PlayingCard {
+                    if otherPlayingCard.suit == suit {
+                        totalMatches++
+                        suitMatches++
+                    } else if otherPlayingCard.rank == rank {
+                        totalMatches++
+                        rankMatches++
+                    }
                 }
             }
+            
+            //this way, even if we add 15 (or other random #) card matching game, this code shouldn't have to change
+            if totalMatches == otherCards.count {
+                score = suitMatches * SUIT_MATCH_SCORE + rankMatches * RANK_MATCH_SCORE
+            }
+            
         }
         return score
     }

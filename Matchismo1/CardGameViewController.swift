@@ -18,6 +18,8 @@ class CardGameViewController : UIViewController {
     let cardBack = UIImage(named: "CardBack")
     let cardFront = UIImage(named: "CardFront")
     
+    private var playableFaceUpCards:[Card] = []
+    
     @IBAction func dealNewButton(sender: UIButton) {
         startNewGame(numCardsSegmentControl.selectedSegmentIndex)
     }
@@ -53,10 +55,13 @@ class CardGameViewController : UIViewController {
     @IBAction func flipCard(sender: UIButton) {
         resultLabel.numberOfLines = 0
         numCardsSegmentControl.enabled = false
+        
         if let resultText = game.flipCardAtIndex(indexOfButton(sender)) {
             if resultText != "" {
                 resultLabel.text = resultText
                 resultHistory.append(resultText)
+                
+                //make sure we don't get out of range errors; minus 1 to each
                 historySlider.maximumValue = Float(resultHistory.count)-1
                 historySlider.value = Float(resultHistory.count)-1
             }
@@ -73,6 +78,7 @@ class CardGameViewController : UIViewController {
         historySlider.maximumValue = 1
         historySlider.value = 0.5
         
+        //make sure that buttons that were disabled last game are now enabled
         for button in cardButtons {
             button.enabled = true
         }
