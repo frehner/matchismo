@@ -213,17 +213,24 @@
                                     <segment title="3 Card"/>
                                 </segments>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <action selector="numCardsSegmentControlChange:" destination="vXZ-lx-hvc" eventType="valueChanged" id="dnx-Be-Zwj"/>
+                                </connections>
                             </segmentedControl>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" id="r2l-Xc-c2Y">
                                 <rect key="frame" x="101" y="439" width="118" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <action selector="historySliderChanged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="F4u-jI-Zka"/>
+                                </connections>
                             </slider>
                         </subviews>
                         <color key="backgroundColor" red="0.019228088486212967" green="0.53020974864130432" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <connections>
                         <outlet property="flipLabel" destination="AU3-KW-SSn" id="ucJ-8g-xIF"/>
+                        <outlet property="historySlider" destination="r2l-Xc-c2Y" id="Asv-pG-wi9"/>
                         <outlet property="numCardsSegmentControl" destination="hz5-gf-4BM" id="W9w-7L-4Fg"/>
                         <outlet property="resultLabel" destination="awt-1U-wdT" id="x8L-11-EG4"/>
                         <outlet property="scoreLabel" destination="KxR-0o-lAE" id="3mE-fp-78J"/>

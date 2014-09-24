@@ -19,14 +19,25 @@ class CardGameViewController : UIViewController {
     let cardFront = UIImage(named: "CardFront")
     
     @IBAction func dealNewButton(sender: UIButton) {
-        startNewGame()
+        startNewGame(numCardsSegmentControl.selectedSegmentIndex)
     }
 
+    @IBAction func numCardsSegmentControlChange(sender: UISegmentedControl) {
+        startNewGame(sender.selectedSegmentIndex)
+    }
+    
     @IBOutlet weak var numCardsSegmentControl: UISegmentedControl!
     @IBOutlet weak var resultLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var flipLabel: UILabel!
+    @IBOutlet weak var historySlider: UISlider!
 
+    @IBAction func historySliderChanged(sender: UISlider) {
+        if Int(sender.value) < resultHistory.count {
+            resultLabel.text = resultHistory[Int(sender.value)]
+        }
+    }
+    
     var flipCount: Int = 0 {
         didSet {
             flipLabel.text = "Flips: \(flipCount)"
@@ -35,27 +46,37 @@ class CardGameViewController : UIViewController {
 
     @IBOutlet var cardButtons: [UIButton]! {
         didSet {
-            game = CardMatchingGame(cardCount: cardButtons.count, deck: PlayingCardDeck())
+            game = CardMatchingGame(cardCount: cardButtons.count, deck: PlayingCardDeck(), numberOfCardsMatching: 0)
         }
     }
 
     @IBAction func flipCard(sender: UIButton) {
         resultLabel.numberOfLines = 0
+        numCardsSegmentControl.enabled = false
         if let resultText = game.flipCardAtIndex(indexOfButton(sender)) {
-            resultLabel.text = resultText
-            resultHistory.append(resultText)
+            if resultText != "" {
+                resultLabel.text = resultText
+                resultHistory.append(resultText)
+                historySlider.maximumValue = Float(resultHistory.count)-1
+                historySlider.value = Float(resultHistory.count)-1
+            }
         }
         ++flipCount
         updateUI()
     }
     
-    func startNewGame() {
-        game = CardMatchingGame(cardCount: cardButtons.count, deck: PlayingCardDeck())
+    func startNewGame(numCardMatch: Int) {
+        game = CardMatchingGame(cardCount: cardButtons.count, deck: PlayingCardDeck(), numberOfCardsMatching: numCardMatch)
         flipCount = 0
+        resultLabel.text = "Results"
+        resultHistory = []
+        historySlider.maximumValue = 1
+        historySlider.value = 0.5
         
         for button in cardButtons {
             button.enabled = true
         }
+        numCardsSegmentControl.enabled = true
         updateUI()
     }
     
