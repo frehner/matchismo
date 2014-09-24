@@ -18,7 +18,7 @@ class CardGameViewController : UIViewController {
     let cardBack = UIImage(named: "CardBack")
     let cardFront = UIImage(named: "CardFront")
     
-    private var playableFaceUpCards:[Card] = []
+    private var playableFaceUpCardIndicies:[Int] = []
     
     @IBAction func dealNewButton(sender: UIButton) {
         startNewGame(numCardsSegmentControl.selectedSegmentIndex)
@@ -35,8 +35,11 @@ class CardGameViewController : UIViewController {
     @IBOutlet weak var historySlider: UISlider!
 
     @IBAction func historySliderChanged(sender: UISlider) {
-        if Int(sender.value) < resultHistory.count {
+        if Int(sender.value) < resultHistory.count - 1 {
             resultLabel.text = resultHistory[Int(sender.value)]
+            resultLabel.alpha = 0.5
+        } else {
+            resultLabel.alpha = 1
         }
     }
     
@@ -56,14 +59,26 @@ class CardGameViewController : UIViewController {
         resultLabel.numberOfLines = 0
         numCardsSegmentControl.enabled = false
         
+        //make sure that there are only a certain amount of cards face up at a time
+        if playableFaceUpCardIndicies.count > game.getNumCardsMatching() {
+            for cardIndexToFlip in playableFaceUpCardIndicies {
+                game.flipCardAtIndex(cardIndexToFlip)
+            }
+            playableFaceUpCardIndicies = []
+        }
+        
         if let resultText = game.flipCardAtIndex(indexOfButton(sender)) {
             if resultText != "" {
                 resultLabel.text = resultText
+                resultLabel.alpha = 1
+                
                 resultHistory.append(resultText)
                 
                 //make sure we don't get out of range errors; minus 1 to each
                 historySlider.maximumValue = Float(resultHistory.count)-1
                 historySlider.value = Float(resultHistory.count)-1
+                
+                playableFaceUpCardIndicies.append(indexOfButton(sender))
             }
         }
         ++flipCount
@@ -71,12 +86,15 @@ class CardGameViewController : UIViewController {
     }
     
     func startNewGame(numCardMatch: Int) {
+        //reset ALL THE THINGS
         game = CardMatchingGame(cardCount: cardButtons.count, deck: PlayingCardDeck(), numberOfCardsMatching: numCardMatch)
         flipCount = 0
         resultLabel.text = "Results"
+        resultLabel.alpha = 1
         resultHistory = []
         historySlider.maximumValue = 1
         historySlider.value = 0.5
+        playableFaceUpCardIndicies = []
         
         //make sure that buttons that were disabled last game are now enabled
         for button in cardButtons {

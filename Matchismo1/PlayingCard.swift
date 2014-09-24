@@ -34,7 +34,7 @@ class PlayingCard: Card {
             
             //this way, even if we add 15 (or other random #) card matching game, this code shouldn't have to change
             if totalMatches == otherCards.count {
-                score = suitMatches * SUIT_MATCH_SCORE + rankMatches * RANK_MATCH_SCORE
+                score = (suitMatches * SUIT_MATCH_SCORE + rankMatches * RANK_MATCH_SCORE) * totalMatches
             }
             
         }
