@@ -18,6 +18,7 @@ class SetCard: Card {
             if !contains(self.dynamicType.validNumbers(), number) {
                 number = 0
             }
+            contents = "\(number) \(color) \(shade) \(symbol)"
         }
     }
     var symbol:String! {
@@ -25,6 +26,7 @@ class SetCard: Card {
             if !contains(self.dynamicType.validSymbols(), symbol) {
                 symbol = "?"
             }
+            contents = "\(number) \(color) \(shade) \(symbol)"
         }
     }
     var shade:String! {
@@ -32,6 +34,7 @@ class SetCard: Card {
             if !contains(self.dynamicType.validShading(), shade) {
                 shade = "!"
             }
+            contents = "\(number) \(color) \(shade) \(symbol)"
         }
     }
     var color:String! {
@@ -39,6 +42,7 @@ class SetCard: Card {
             if !contains(self.dynamicType.validColors(), color) {
                 color = "@"
             }
+            contents = "\(number) \(color) \(shade) \(symbol)"
         }
     }
     

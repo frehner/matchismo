@@ -10,31 +10,30 @@ import UIKit
 
 class SetGameViewController : CardGameViewController {
     
-    // MARK: Outlets
-    @IBOutlet override var cardButtons: [UIButton]! {
-        didSet {
-            game = CardMatchingGame(cardCount: cardButtons.count, deck: PlayingCardDeck(), numberOfCardsMatching: 1)
+    // MARK: Properties
+    var setCardBack = UIImage(named: "CardFront")
+    override var cardBack: UIImage {
+        get {
+            return setCardBack
         }
     }
     
-    // MARK: Helpers
-    override func startNewGame(numCardMatch: Int) {
-        //reset ALL THE THINGS
-        game = CardMatchingGame(cardCount: cardButtons.count, deck: PlayingCardDeck(), numberOfCardsMatching: 1)
-        flipCount = 0
-        resultLabel.text = "Results"
-        resultLabel.alpha = 1
-        resultHistory = []
-        historySlider.maximumValue = 1
-        historySlider.value = 0.5
-        playableFaceUpCardIndicies = []
-        
-        //make sure that buttons that were disabled last game are now enabled
-        for button in cardButtons {
-            button.enabled = true
+    // MARK: Outlets
+    @IBOutlet override var cardButtons: [UIButton]! {
+        didSet {
+            game = CardMatchingGame(cardCount: cardButtons.count, deck: SetCardDeck(), numberOfCardsMatching: 1)
         }
-        numCardsSegmentControl.enabled = true
+    }
+    
+    // MARK: Actions
+    
+    // MARK: Helpers
+    override func getGameType() -> String {
+        return "Set"
+    }
+    
+    // MARK: View controller lifecycle
+    override func viewDidAppear(animated: Bool) {
         updateUI()
     }
-
 }

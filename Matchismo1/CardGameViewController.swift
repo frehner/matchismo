@@ -38,7 +38,12 @@ class CardGameViewController : UIViewController {
 
     // MARK: Actions
     @IBAction func dealNewButton(sender: UIButton) {
-        startNewGame(numCardsSegmentControl.selectedSegmentIndex)
+        if getGameType() == "Matching" {
+            startNewGame(numCardsSegmentControl.selectedSegmentIndex)
+        } else {
+            startNewGame(1)
+        }
+        
     }
 
     @IBAction func numCardsSegmentControlChange(sender: UISegmentedControl) {
@@ -54,7 +59,10 @@ class CardGameViewController : UIViewController {
     }
     @IBAction func flipCard(sender: UIButton) {
         resultLabel.numberOfLines = 0
-        numCardsSegmentControl.enabled = false
+        
+        if getGameType() == "Matching" {
+            numCardsSegmentControl.enabled = false
+        }
         
         //make sure that there are only a certain amount of cards face up at a time
         if playableFaceUpCardIndicies.count > game.getNumCardsMatching() {
@@ -85,7 +93,13 @@ class CardGameViewController : UIViewController {
     // MARK: Helpers
     func startNewGame(numCardMatch: Int) {
         //reset ALL THE THINGS
-        game = CardMatchingGame(cardCount: cardButtons.count, deck: PlayingCardDeck(), numberOfCardsMatching: numCardMatch)
+        
+        if getGameType() == "Matching" {
+            game = CardMatchingGame(cardCount: cardButtons.count, deck: PlayingCardDeck(), numberOfCardsMatching: numCardMatch)
+        } else {
+            game = CardMatchingGame(cardCount: cardButtons.count, deck: SetCardDeck(), numberOfCardsMatching: numCardMatch)
+        }
+        
         flipCount = 0
         resultLabel.text = "Results"
         resultLabel.alpha = 1
@@ -98,7 +112,11 @@ class CardGameViewController : UIViewController {
         for button in cardButtons {
             button.enabled = true
         }
-        numCardsSegmentControl.enabled = true
+        
+        if getGameType() == "Matching" {
+            numCardsSegmentControl.enabled = true
+        }
+        
         updateUI()
     }
     
@@ -111,7 +129,12 @@ class CardGameViewController : UIViewController {
                 button.setBackgroundImage(cardFront, forState: .Normal)
                 button.enabled = !card.unplayable
             } else {
-                button.setTitle("", forState: .Normal)
+                if getGameType() == "Matching" {
+                    button.setTitle("", forState: .Normal)
+                } else {
+                    button.setTitle(card.contents, forState: .Normal)
+                }
+                
                 button.setBackgroundImage(cardBack, forState: .Normal)
             }
         }
@@ -125,6 +148,10 @@ class CardGameViewController : UIViewController {
             }
         }
         return -1
+    }
+    
+    func getGameType() -> String {
+        return "Matching"
     }
     
 }

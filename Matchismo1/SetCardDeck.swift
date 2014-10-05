@@ -17,7 +17,12 @@ class SetCardDeck:Deck {
                 for shade in SetCard.validShading() {
                     for color in SetCard.validColors() {
                         var card = SetCard()
+                        card.color = color
+                        card.shade = shade
+                        card.number = number
+                        card.symbol = symbol
                         
+                        addCard(card, atTop: true)
                     }
                 }
             }
