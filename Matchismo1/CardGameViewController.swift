@@ -9,17 +9,34 @@
 import UIKit
 
 class CardGameViewController : UIViewController {
+    
+    // MARK: Properties
     lazy var cards: [UIButton: Card]! = [UIButton: Card]()
     lazy var resultHistory: [String]! = []
     var game: CardMatchingGame!
-    
-    private lazy var resultString:String = ""
-    
+    internal lazy var resultString:String = ""
     let cardBack = UIImage(named: "CardBack")
     let cardFront = UIImage(named: "CardFront")
+    internal var playableFaceUpCardIndicies:[Int] = []
+    var flipCount: Int = 0 {
+        didSet {
+            flipLabel.text = "Flips: \(flipCount)"
+        }
+    }
     
-    private var playableFaceUpCardIndicies:[Int] = []
-    
+    // MARK: Outlets
+    @IBOutlet weak var numCardsSegmentControl: UISegmentedControl!
+    @IBOutlet weak var resultLabel: UILabel!
+    @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var flipLabel: UILabel!
+    @IBOutlet weak var historySlider: UISlider!
+    @IBOutlet var cardButtons: [UIButton]! {
+        didSet {
+            game = CardMatchingGame(cardCount: cardButtons.count, deck: PlayingCardDeck(), numberOfCardsMatching: 0)
+        }
+    }
+
+    // MARK: Actions
     @IBAction func dealNewButton(sender: UIButton) {
         startNewGame(numCardsSegmentControl.selectedSegmentIndex)
     }
@@ -27,13 +44,6 @@ class CardGameViewController : UIViewController {
     @IBAction func numCardsSegmentControlChange(sender: UISegmentedControl) {
         startNewGame(sender.selectedSegmentIndex)
     }
-    
-    @IBOutlet weak var numCardsSegmentControl: UISegmentedControl!
-    @IBOutlet weak var resultLabel: UILabel!
-    @IBOutlet weak var scoreLabel: UILabel!
-    @IBOutlet weak var flipLabel: UILabel!
-    @IBOutlet weak var historySlider: UISlider!
-
     @IBAction func historySliderChanged(sender: UISlider) {
         if Int(sender.value) < resultHistory.count - 1 {
             resultLabel.text = resultHistory[Int(sender.value)]
@@ -42,19 +52,6 @@ class CardGameViewController : UIViewController {
             resultLabel.alpha = 1
         }
     }
-    
-    var flipCount: Int = 0 {
-        didSet {
-            flipLabel.text = "Flips: \(flipCount)"
-        }
-    }
-
-    @IBOutlet var cardButtons: [UIButton]! {
-        didSet {
-            game = CardMatchingGame(cardCount: cardButtons.count, deck: PlayingCardDeck(), numberOfCardsMatching: 0)
-        }
-    }
-
     @IBAction func flipCard(sender: UIButton) {
         resultLabel.numberOfLines = 0
         numCardsSegmentControl.enabled = false
@@ -85,6 +82,7 @@ class CardGameViewController : UIViewController {
         updateUI()
     }
     
+    // MARK: Helpers
     func startNewGame(numCardMatch: Int) {
         //reset ALL THE THINGS
         game = CardMatchingGame(cardCount: cardButtons.count, deck: PlayingCardDeck(), numberOfCardsMatching: numCardMatch)

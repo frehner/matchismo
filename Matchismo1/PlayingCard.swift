@@ -43,19 +43,19 @@ class PlayingCard: Card {
     
     var suit:String! {
         didSet {
-            if !contains(PlayingCard.validSuits(), suit) {
+            if !contains(self.dynamicType.validSuits(), suit) {
                 suit = "?"
             }
-            contents = "\(PlayingCard.rankStrings()[rank])\(suit)"
+            contents = "\(self.dynamicType.rankStrings()[rank])\(suit)"
         }
     }
     
     var rank:Int! {
         didSet {
-            if rank < 0 || rank > PlayingCard.maxRank() {
+            if rank < 0 || rank > self.dynamicType.maxRank() {
                 rank = 0
             }
-            contents = "\(PlayingCard.rankStrings()[rank])\(suit)"
+            contents = "\(self.dynamicType.rankStrings()[rank])\(suit)"
         }
     }
     
