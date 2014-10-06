@@ -128,11 +128,17 @@ class CardGameViewController : UIViewController {
                 button.setTitle(card.contents, forState: .Normal)
                 button.setBackgroundImage(cardFront, forState: .Normal)
                 button.enabled = !card.unplayable
+                
+                if getGameType() == "Set" {
+                    button.alpha = 0.5
+                }
+                
             } else {
                 if getGameType() == "Matching" {
                     button.setTitle("", forState: .Normal)
                 } else {
                     button.setTitle(card.contents, forState: .Normal)
+                    button.alpha = 1
                 }
                 
                 button.setBackgroundImage(cardBack, forState: .Normal)

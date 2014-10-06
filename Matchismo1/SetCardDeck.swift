@@ -12,15 +12,16 @@ class SetCardDeck:Deck {
     override init() {
         super.init()
         
-        for symbol in SetCard.validSymbols() {
-            for number in SetCard.validNumbers() {
-                for shade in SetCard.validShading() {
-                    for color in SetCard.validColors() {
+        for symbol in SetCard().validSymbols() {
+            for number in SetCard().validNumbers() {
+                for shade in SetCard().validShading() {
+                    for color in SetCard().validColors() {
                         var card = SetCard()
                         card.color = color
                         card.shade = shade
                         card.number = number
                         card.symbol = symbol
+                        card.setContents()
                         
                         addCard(card, atTop: true)
                     }

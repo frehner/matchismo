@@ -15,34 +15,30 @@ class SetCard: Card {
     // MARK: Properties
     var number:Int! {
         didSet {
-            if !contains(self.dynamicType.validNumbers(), number) {
+            if !contains(validNumbers(), number) {
                 number = 0
             }
-            contents = "\(number) \(color) \(shade) \(symbol)"
         }
     }
     var symbol:String! {
         didSet {
-            if !contains(self.dynamicType.validSymbols(), symbol) {
+            if !contains(validSymbols(), symbol) {
                 symbol = "?"
             }
-            contents = "\(number) \(color) \(shade) \(symbol)"
         }
     }
     var shade:String! {
         didSet {
-            if !contains(self.dynamicType.validShading(), shade) {
+            if !contains(validShading(), shade) {
                 shade = "!"
             }
-            contents = "\(number) \(color) \(shade) \(symbol)"
         }
     }
     var color:String! {
         didSet {
-            if !contains(self.dynamicType.validColors(), color) {
+            if !contains(validColors(), color) {
                 color = "@"
             }
-            contents = "\(number) \(color) \(shade) \(symbol)"
         }
     }
     
@@ -73,19 +69,20 @@ class SetCard: Card {
         
         return score
     }
-    class func validNumbers() -> [Int] {
+    
+    func validNumbers() -> [Int] {
         return [1,2,3]
     }
     
-    class func validSymbols() -> [String] {
-        return ["triangle", "circle", "square"]
+    func validSymbols() -> [String] {
+        return ["▲", "●", "■"]
     }
     
-    class func validShading() -> [String] {
+    func validShading() -> [String] {
         return ["striped", "solid", "open"]
     }
     
-    class func validColors() -> [String] {
+    func validColors() -> [String] {
         return ["green", "red", "blue"]
     }
     class func isASet<T: Equatable>(firstCardAttribute one: T, secondCardAttribute two: T, thirdCardAttribute three: T) -> Bool {
@@ -94,6 +91,16 @@ class SetCard: Card {
         } else {
             return false
         }
+    }
+    
+    func setContents() {
+        contents = ""
+        if contains(validNumbers(), number) && contains(validSymbols(), symbol) {
+            for i in 1...number {
+                contents += symbol
+            }
+        }
+        
     }
     
     
