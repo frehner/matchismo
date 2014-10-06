@@ -85,13 +85,6 @@ class SetCard: Card {
     func validColors() -> [String] {
         return ["green", "red", "blue"]
     }
-    class func isASet<T: Equatable>(firstCardAttribute one: T, secondCardAttribute two: T, thirdCardAttribute three: T) -> Bool {
-        if ( (one == two) && (one == three) ) || ( (one != two) && (one != three) && (two != three) ) {
-            return true
-        } else {
-            return false
-        }
-    }
     
     func setContents() {
         contents = ""
@@ -103,5 +96,13 @@ class SetCard: Card {
         
     }
     
+    // MARK: Helpers
+    private class func isASet<T: Equatable>(firstCardAttribute one: T, secondCardAttribute two: T, thirdCardAttribute three: T) -> Bool {
+        if ( (one == two) && (one == three) ) || ( (one != two) && (one != three) && (two != three) ) {
+            return true
+        } else {
+            return false
+        }
+    }
     
 }

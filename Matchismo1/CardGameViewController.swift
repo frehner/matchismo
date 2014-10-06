@@ -134,11 +134,54 @@ class CardGameViewController : UIViewController {
                 }
                 
             } else {
-                if getGameType() == "Matching" {
+                
+                switch getGameType(){
+                case "Set":
+                    
+                    if let setCard = card as? SetCard {
+                        
+                        var textColor = UIColor.blackColor()
+                        var strokeColor = UIColor.blackColor()
+                        
+                        switch setCard.color {
+                        case "green":
+                            textColor = UIColor.greenColor()
+                            strokeColor = UIColor.greenColor()
+                        case "blue":
+                            textColor = UIColor.blueColor()
+                            strokeColor = UIColor.blueColor()
+                        default:
+                            textColor = UIColor.redColor()
+                            strokeColor = UIColor.redColor()
+                        }
+                        
+                        switch setCard.shade {
+                        case "striped":
+                            textColor = textColor.colorWithAlphaComponent(0.3)
+                        case "open":
+                            textColor = UIColor.whiteColor()
+                        default:
+                            textColor = textColor.colorWithAlphaComponent(1)
+                        }
+                        
+                        var styling = [NSForegroundColorAttributeName : textColor,
+                                        NSStrokeWidthAttributeName : -3,
+                                        NSStrokeColorAttributeName : strokeColor]
+                        var temporaryContent = NSAttributedString(string: setCard.symbol, attributes: styling)
+                        
+                        var finalContent = NSMutableAttributedString()
+                        
+                        for i in 1...setCard.number {
+                            finalContent.appendAttributedString(temporaryContent)
+                        }
+                        
+                        button.setAttributedTitle(finalContent, forState: .Normal)
+                        button.alpha = 1
+
+                    }
+                    
+                default:
                     button.setTitle("", forState: .Normal)
-                } else {
-                    button.setTitle(card.contents, forState: .Normal)
-                    button.alpha = 1
                 }
                 
                 button.setBackgroundImage(cardBack, forState: .Normal)
