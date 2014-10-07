@@ -50,7 +50,7 @@ class CardGameViewController : UIViewController {
         startNewGame(sender.selectedSegmentIndex)
     }
     @IBAction func historySliderChanged(sender: UISlider) {
-        if Int(sender.value) < resultHistory.count - 1 {
+        if Int(sender.value) < resultHistory.count{
             resultLabel.attributedText = resultHistory[Int(sender.value)]
             resultLabel.alpha = 0.5
         } else {
@@ -88,8 +88,8 @@ class CardGameViewController : UIViewController {
                 resultLabel.alpha = 1
                 
                 //make sure we don't get out of range errors; minus 1 to each
-                historySlider.maximumValue = Float(resultHistory.count)-1
-                historySlider.value = Float(resultHistory.count)-1
+                historySlider.maximumValue = Float(resultHistory.count)
+                historySlider.value = Float(resultHistory.count)
                 
                 playableFaceUpCardIndicies.append(indexOfButton(sender))
             }
@@ -152,14 +152,10 @@ class CardGameViewController : UIViewController {
                 
                 switch getGameType(){
                 case "Set":
-                    
                     if let setCard = card as? SetCard {
-                        
-                        var finalContent = getSetCardAttributedString(cardToGetAttributedString: setCard)
-                        button.setAttributedTitle(finalContent, forState: .Normal)
+                        button.setAttributedTitle(setCard.contents, forState: .Normal)
                         button.alpha = 1
                     }
-                    
                 default:
                     button.setAttributedTitle(NSAttributedString(string: ""), forState: .Normal)
                 }
