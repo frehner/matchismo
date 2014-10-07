@@ -12,8 +12,7 @@ class CardGameViewController : UIViewController {
     
     // MARK: Properties
     lazy var cards: [UIButton: Card]! = [UIButton: Card]()
-    lazy var resultHistory: [String]! = []
-    lazy var attributedStringResultHistory: [NSAttributedString]! = []
+    lazy var resultHistory: [NSAttributedString]! = []
     var game: CardMatchingGame!
     internal lazy var resultString:String = ""
     let cardBack = UIImage(named: "CardBack")
@@ -52,7 +51,7 @@ class CardGameViewController : UIViewController {
     }
     @IBAction func historySliderChanged(sender: UISlider) {
         if Int(sender.value) < resultHistory.count - 1 {
-            resultLabel.text = resultHistory[Int(sender.value)]
+            resultLabel.attributedText = resultHistory[Int(sender.value)]
             resultLabel.alpha = 0.5
         } else {
             resultLabel.alpha = 1
@@ -80,16 +79,10 @@ class CardGameViewController : UIViewController {
             }
         }
         
-//        if let lastCard = playableFaceUpCardIndicies.last {
-//            if lastCard == indexOfButton(sender) {
-//                playableFaceUpCardIndicies.removeLast()
-//            }
-//        }
-        
         if let resultText = game.flipCardAtIndex(indexOfButton(sender)) {
             if resultText != "" {
                 
-                resultLabel.text = resultText
+                resultLabel.attributedText = resultText
                 resultHistory.append(resultText)
                 
                 resultLabel.alpha = 1
@@ -139,8 +132,15 @@ class CardGameViewController : UIViewController {
         
         for button in cardButtons {
             let card = game.cardAtIndex(indexOfButton(button))!
+            
+            if getGameType() == "Set" {
+                if let setCard = card as? SetCard {
+                    setCard.contents = getSetCardAttributedString(cardToGetAttributedString: setCard)
+                }
+            }
+            
             if card.faceUp {
-                button.setTitle(card.contents, forState: .Normal)
+                button.setAttributedTitle(card.contents, forState: .Normal)
                 button.setBackgroundImage(cardFront, forState: .Normal)
                 button.enabled = !card.unplayable
                 
@@ -161,7 +161,7 @@ class CardGameViewController : UIViewController {
                     }
                     
                 default:
-                    button.setTitle("", forState: .Normal)
+                    button.setAttributedTitle(NSAttributedString(string: ""), forState: .Normal)
                 }
                 
                 button.setBackgroundImage(cardBack, forState: .Normal)

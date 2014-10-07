@@ -32,8 +32,8 @@ class CardMatchingGame {
         }
     }
     
-    func flipCardAtIndex(index: Int) ->String? {
-        var resultString:String? = ""
+    func flipCardAtIndex(index: Int) ->NSAttributedString? {
+        var resultString = NSMutableAttributedString()
         var potentialCardMatches:[Card] = []
         
         if let card = cardAtIndex(index) {
@@ -42,7 +42,8 @@ class CardMatchingGame {
                 
                 if !card.faceUp {
                     
-                    resultString = "Flipped \(card.contents)"
+                    resultString.appendAttributedString(NSAttributedString(string: "Flipped "))
+                    resultString.appendAttributedString(card.contents)
                     
                     for otherCard in cards {
                         
@@ -60,26 +61,25 @@ class CardMatchingGame {
                         let matchScore = card.match(potentialCardMatches)
                         // match tells how good a match it is, or 0 if mismatch
                         if matchScore > 0 {
-                            resultString! += ", matched "
+                            resultString.appendAttributedString(NSAttributedString(string: ", matched "))
                             
                             for matchedCard in potentialCardMatches {
                                 matchedCard.unplayable = true
-                                resultString! += "\(matchedCard.contents) "
+                                resultString.appendAttributedString(card.contents)
                             }
                             
                             card.unplayable = true
                             score += matchScore * MATCH_BONUS
-                            //score += matchScore * MATCH_BONUS
-                            resultString! += "for \(matchScore * MATCH_BONUS) points"
+                            resultString.appendAttributedString(NSAttributedString(string: "for \(matchScore * MATCH_BONUS) points"))
                         } else {
                             score -= MISMATCH_PENALTY
-                            resultString! += ", mismatched "
+                            resultString.appendAttributedString(NSAttributedString(string: ", mismatched "))
                             
                             for mismatchedCard in potentialCardMatches {
-                                resultString! += "\(mismatchedCard.contents) "
+                                resultString.appendAttributedString(mismatchedCard.contents)
                             }
                             
-                            resultString! += "for a \(MISMATCH_PENALTY) point penalty"
+                            resultString.appendAttributedString(NSAttributedString(string: "for a \(MISMATCH_PENALTY) point penalty"))
                         }
 
                     }

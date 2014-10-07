@@ -46,7 +46,7 @@ class PlayingCard: Card {
             if !contains(self.dynamicType.validSuits(), suit) {
                 suit = "?"
             }
-            contents = "\(self.dynamicType.rankStrings()[rank])\(suit)"
+            contents = NSAttributedString(string: "\(self.dynamicType.rankStrings()[rank])\(suit)")
         }
     }
     
@@ -55,7 +55,7 @@ class PlayingCard: Card {
             if rank < 0 || rank > self.dynamicType.maxRank() {
                 rank = 0
             }
-            contents = "\(self.dynamicType.rankStrings()[rank])\(suit)"
+            contents = NSAttributedString(string: "\(self.dynamicType.rankStrings()[rank])\(suit)")
         }
     }
     

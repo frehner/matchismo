@@ -9,7 +9,7 @@
 import Foundation
 
 class Card {
-    var contents = ""
+    var contents = NSAttributedString()
     var faceUp = false
     var unplayable = false
     

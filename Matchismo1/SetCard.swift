@@ -10,7 +10,7 @@ import Foundation
 
 class SetCard: Card {
     // MARK: Constants
-    let MATCH_SCORE = 20
+    let MATCH_SCORE = 5
     
     // MARK: Properties
     var number:Int! {
