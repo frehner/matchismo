@@ -1,9 +1,9 @@
 matchismo
 =========
 
-iOS Swift Program.  Was assigned as homework for my IS 543 Swift iOS development class.
+iOS Swift App.  Was assigned as homework for my IS 543 Swift iOS development class.  A card matching game, plus more!  
 
-The following were the requirements of the assignment
+Requirements for Part 1
 =========
 
 Required Tasks
@@ -18,7 +18,17 @@ should reset the score (and anything else in the UI that makes sense). In a real
 6. Disable the game play mode control (i.e. the UISwitch or UISegmentedControl from Required Task #5) when flipping starts and re-enable it when a re-deal happens (i.e. the Deal button is pressed).
 7. Use the images I’ve posted on Learning Suite to make the back of the card be an image (UIImage) rather than an Apple  logo and to make the front of the card look like a real card with white background, black border, and rounded corners.
 
-Need More of a Challenge?
+Requirements for Part 2
 ==========
-Here is an idea for something you could do to get some more experience with the SDK at this point in the game.
-Add a UISlider to your UI that travels through the history of the current game’s flips and display it to the user (moving the slider will modify the contents of the text label you created for Required Task #3 to show its state over the course of the game). When you are displaying past flips, you probably want the text label to be grayed out (with alpha) or something so it’s clear that it’s “the past.” Also, you probably don’t want that text label from Required Task #3 to ever be blank (except at the very start of the game, of course). And every time a new flip happens, you probably want to “jump to the present” in the slider. Implementing this extra item will require you to familiarize yourself with UISlider’s API and to add a data structure to your Controller to keep track of the history. It can be implemented in fewer than a dozen lines of code.
+1. Add a tab bar controller to your application. One tab will be the game you built last week in Project 1. The other tab will be a new game, Set. Set is still a card game, so a good solution to this assignment will use object-oriented programming techniques to share a lot of code.
+2. Don’t violate any of the Required Tasks from Project 1 in the playing card game tab (in other words, don’t break any features from last week). The only exception is that your playing card game is only required to be a 2-card-match game this week, so if you’d like you can now remove the switch or segmented control you added in Project 1. Your Set game is a 3-card matching game.
+3. The Set game only needs to allow users to pick sets and get points for doing so (it does not re-deal new cards when sets are found). In other words, it works just like your other card game (except that it is a 3-card match with different kinds of cards).
+4. Choose reasonable amounts to award the user for successfully finding a set or for incorrectly picking cards that are not a set.
+5. Your Set game should have 24 cards.
+6. Instead of drawing the cards in the classic form (we’ll do that next week), we’ll use
+these three characters ▲ ● ■ and use attributes in NSAttributedString to draw them
+appropriately (i.e. colors and shading).
+7. Your Set game should have a Deal button, Score label and Flips label just like your
+playing-card matching game from Project 1.
+8. Your Set game should also report matches and mismatches like you did in Project 1,
+but you’ll have to enhance this feature (to use NSAttributedString) to make it work for displaying Set card matches.
