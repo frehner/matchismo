@@ -13,6 +13,7 @@ class CardGameViewController : UIViewController {
     // MARK: Properties
     lazy var cards: [UIButton: Card]! = [UIButton: Card]()
     lazy var resultHistory: [String]! = []
+    lazy var attributedStringResultHistory: [NSAttributedString]! = []
     var game: CardMatchingGame!
     internal lazy var resultString:String = ""
     let cardBack = UIImage(named: "CardBack")
@@ -72,12 +73,26 @@ class CardGameViewController : UIViewController {
             playableFaceUpCardIndicies = []
         }
         
+        //removes a card from the array of cards if you flipped it again without getting a match or mismatch
+        for (index, cardIndex) in enumerate(playableFaceUpCardIndicies) {
+            if cardIndex == indexOfButton(sender) {
+                playableFaceUpCardIndicies.removeAtIndex(index)
+            }
+        }
+        
+//        if let lastCard = playableFaceUpCardIndicies.last {
+//            if lastCard == indexOfButton(sender) {
+//                playableFaceUpCardIndicies.removeLast()
+//            }
+//        }
+        
         if let resultText = game.flipCardAtIndex(indexOfButton(sender)) {
             if resultText != "" {
-                resultLabel.text = resultText
-                resultLabel.alpha = 1
                 
+                resultLabel.text = resultText
                 resultHistory.append(resultText)
+                
+                resultLabel.alpha = 1
                 
                 //make sure we don't get out of range errors; minus 1 to each
                 historySlider.maximumValue = Float(resultHistory.count)-1
@@ -140,44 +155,9 @@ class CardGameViewController : UIViewController {
                     
                     if let setCard = card as? SetCard {
                         
-                        var textColor = UIColor.blackColor()
-                        var strokeColor = UIColor.blackColor()
-                        
-                        switch setCard.color {
-                        case "green":
-                            textColor = UIColor.greenColor()
-                            strokeColor = UIColor.greenColor()
-                        case "blue":
-                            textColor = UIColor.blueColor()
-                            strokeColor = UIColor.blueColor()
-                        default:
-                            textColor = UIColor.redColor()
-                            strokeColor = UIColor.redColor()
-                        }
-                        
-                        switch setCard.shade {
-                        case "striped":
-                            textColor = textColor.colorWithAlphaComponent(0.3)
-                        case "open":
-                            textColor = UIColor.whiteColor()
-                        default:
-                            textColor = textColor.colorWithAlphaComponent(1)
-                        }
-                        
-                        var styling = [NSForegroundColorAttributeName : textColor,
-                                        NSStrokeWidthAttributeName : -3,
-                                        NSStrokeColorAttributeName : strokeColor]
-                        var temporaryContent = NSAttributedString(string: setCard.symbol, attributes: styling)
-                        
-                        var finalContent = NSMutableAttributedString()
-                        
-                        for i in 1...setCard.number {
-                            finalContent.appendAttributedString(temporaryContent)
-                        }
-                        
+                        var finalContent = getSetCardAttributedString(cardToGetAttributedString: setCard)
                         button.setAttributedTitle(finalContent, forState: .Normal)
                         button.alpha = 1
-
                     }
                     
                 default:
@@ -201,6 +181,10 @@ class CardGameViewController : UIViewController {
     
     func getGameType() -> String {
         return "Matching"
+    }
+    
+    func getSetCardAttributedString(cardToGetAttributedString setCard :SetCard) -> NSAttributedString {
+        return NSAttributedString()
     }
     
 }

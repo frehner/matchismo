@@ -21,8 +21,6 @@ class SetCardDeck:Deck {
                         card.shade = shade
                         card.number = number
                         card.symbol = symbol
-                        card.setContents()
-                        
                         addCard(card, atTop: true)
                     }
                 }

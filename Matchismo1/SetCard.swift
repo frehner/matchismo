@@ -86,16 +86,6 @@ class SetCard: Card {
         return ["green", "red", "blue"]
     }
     
-    func setContents() {
-        contents = ""
-        if contains(validNumbers(), number) && contains(validSymbols(), symbol) {
-            for i in 1...number {
-                contents += symbol
-            }
-        }
-        
-    }
-    
     // MARK: Helpers
     private class func isASet<T: Equatable>(firstCardAttribute one: T, secondCardAttribute two: T, thirdCardAttribute three: T) -> Bool {
         if ( (one == two) && (one == three) ) || ( (one != two) && (one != three) && (two != three) ) {
